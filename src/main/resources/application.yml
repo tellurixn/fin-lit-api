@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: fin-lit-api
+  jpa:
+    database: postgresql
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: tellme
+    driver-class-name: org.postgresql.Driver
