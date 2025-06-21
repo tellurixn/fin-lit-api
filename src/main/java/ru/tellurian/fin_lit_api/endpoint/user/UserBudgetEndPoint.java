@@ -12,7 +12,7 @@ import ru.tellurian.fin_lit_api.model.dto.ResponseWrapper;
 import ru.tellurian.fin_lit_api.model.dto.user.budget.UserMonthlyBudgetDto;
 import ru.tellurian.fin_lit_api.model.dto.user.budget.UserMonthlyBudgetUpdateDto;
 import ru.tellurian.fin_lit_api.model.entity.User;
-import ru.tellurian.fin_lit_api.service.UserService;
+import ru.tellurian.fin_lit_api.service.user.UserService;
 
 @RestController
 @Tag(name = "UserBudget", description = "Действия с расходами пользователя")

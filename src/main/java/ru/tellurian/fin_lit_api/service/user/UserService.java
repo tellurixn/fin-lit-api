@@ -1,4 +1,4 @@
-package ru.tellurian.fin_lit_api.service;
+package ru.tellurian.fin_lit_api.service.user;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,22 +24,22 @@ public class UserService {
         return new UserMonthlyBudgetDto(userMonthlyBudget);
     }
 
-    public UserMonthlyBudgetDto update(User user, UserMonthlyBudgetUpdateDto upddated) {
+    public UserMonthlyBudgetDto update(User user, UserMonthlyBudgetUpdateDto updated) {
         UserMonthlyBudget current = userBudgetRepository.findByUser(user).orElseThrow(RuntimeException::new);
-        if (current.getMonthlyIncome() != upddated.getMonthlyBudget()) {
-            current.setMonthlyIncome(upddated.getMonthlyBudget());
+        if (current.getMonthlyIncome() != updated.getMonthlyBudget()) {
+            current.setMonthlyIncome(updated.getMonthlyBudget());
         }
-        if (!current.getHealth().equals(upddated.getHealth())) {
-            current.setHealth(upddated.getHealth());
+        if (!current.getHealth().equals(updated.getHealth())) {
+            current.setHealth(updated.getHealth());
         }
-        if (!current.getUtility().equals(upddated.getUtility())) {
-            current.setUtility(upddated.getUtility());
+        if (!current.getUtility().equals(updated.getUtility())) {
+            current.setUtility(updated.getUtility());
         }
-        if (!current.getInternet() .equals(upddated.getInternet())) {
-            current.setInternet(upddated.getInternet());
+        if (!current.getInternet() .equals(updated.getInternet())) {
+            current.setInternet(updated.getInternet());
         }
-        if (!current.getApartmentRent().equals(upddated.getApartmentRent())) {
-            current.setApartmentRent(upddated.getApartmentRent());
+        if (!current.getApartmentRent().equals(updated.getApartmentRent())) {
+            current.setApartmentRent(updated.getApartmentRent());
         }
         UserMonthlyBudget saved = userBudgetRepository.save(current);
         return new UserMonthlyBudgetDto(saved);
