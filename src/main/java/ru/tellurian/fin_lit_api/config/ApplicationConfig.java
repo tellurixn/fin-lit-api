@@ -8,6 +8,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import ru.tellurian.fin_lit_api.config.interceptor.RequestInterceptor;
 import ru.tellurian.fin_lit_api.config.interceptor.UserInterceptor;
 
+/**
+ * Конфигурация приложения
+ * */
 @Configuration
 public class ApplicationConfig implements WebMvcConfigurer {
 

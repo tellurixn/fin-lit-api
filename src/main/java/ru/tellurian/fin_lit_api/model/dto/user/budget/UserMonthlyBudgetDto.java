@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import ru.tellurian.fin_lit_api.model.entity.UserMonthlyBudget;
+import ru.tellurian.fin_lit_api.model.entity.user_budget.UserMonthlyBudget;
 
 /**
  * DTO ежемесячных расходов пользователя

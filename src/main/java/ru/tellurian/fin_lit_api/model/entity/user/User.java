@@ -1,4 +1,4 @@
-package ru.tellurian.fin_lit_api.model.entity;
+package ru.tellurian.fin_lit_api.model.entity.user;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

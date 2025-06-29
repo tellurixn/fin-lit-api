@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import ru.tellurian.fin_lit_api.model.dto.user.budget.UserMonthlyBudgetDto
 import ru.tellurian.fin_lit_api.model.dto.user.budget.UserMonthlyBudgetUpdateDto
-import ru.tellurian.fin_lit_api.model.entity.User
-import ru.tellurian.fin_lit_api.model.entity.UserMonthlyBudget
+import ru.tellurian.fin_lit_api.model.entity.user.User
+import ru.tellurian.fin_lit_api.model.entity.user_budget.UserMonthlyBudget
 import ru.tellurian.fin_lit_api.service.user.UserService
 import ru.tellurian.fin_lit_api.test.FinLitApiTest
 import spock.lang.Unroll

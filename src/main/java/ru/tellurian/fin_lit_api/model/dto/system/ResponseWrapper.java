@@ -1,4 +1,4 @@
-package ru.tellurian.fin_lit_api.model.dto;
+package ru.tellurian.fin_lit_api.model.dto.system;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;

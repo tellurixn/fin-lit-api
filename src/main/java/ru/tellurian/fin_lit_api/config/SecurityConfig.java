@@ -25,6 +25,9 @@ import ru.tellurian.fin_lit_api.constant.EndPointMapping;
 import ru.tellurian.fin_lit_api.repository.security.JwtTokenRepository;
 import ru.tellurian.fin_lit_api.service.user.UserService;
 
+/**
+* Конфигурация Security модуля
+* */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {

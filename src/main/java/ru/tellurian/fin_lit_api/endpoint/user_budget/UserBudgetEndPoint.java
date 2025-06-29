@@ -1,4 +1,4 @@
-package ru.tellurian.fin_lit_api.endpoint.user.budget;
+package ru.tellurian.fin_lit_api.endpoint.user_budget;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.tellurian.fin_lit_api.constant.EndPointMapping;
 import ru.tellurian.fin_lit_api.constant.RequestAttributes;
-import ru.tellurian.fin_lit_api.model.dto.ResponseWrapper;
+import ru.tellurian.fin_lit_api.model.dto.system.ResponseWrapper;
 import ru.tellurian.fin_lit_api.model.dto.user.budget.UserMonthlyBudgetDto;
 import ru.tellurian.fin_lit_api.model.dto.user.budget.UserMonthlyBudgetUpdateDto;
-import ru.tellurian.fin_lit_api.model.entity.User;
+import ru.tellurian.fin_lit_api.model.entity.user.User;
 import ru.tellurian.fin_lit_api.service.user.UserService;
 
 @RestController

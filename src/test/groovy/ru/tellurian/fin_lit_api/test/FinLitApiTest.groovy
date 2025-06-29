@@ -3,10 +3,10 @@ package ru.tellurian.fin_lit_api.test
 import jakarta.transaction.Transactional
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import ru.tellurian.fin_lit_api.model.entity.User
-import ru.tellurian.fin_lit_api.model.entity.UserMonthlyBudget
-import ru.tellurian.fin_lit_api.repository.user.UserBudgetRepository
+import ru.tellurian.fin_lit_api.model.entity.user.User
+import ru.tellurian.fin_lit_api.model.entity.user_budget.UserMonthlyBudget
 import ru.tellurian.fin_lit_api.repository.user.UserRepository
+import ru.tellurian.fin_lit_api.repository.user_budget.UserBudgetRepository
 import spock.lang.Shared
 import spock.lang.Specification
 

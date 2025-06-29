@@ -6,7 +6,7 @@ import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Repository;
-import ru.tellurian.fin_lit_api.model.entity.User;
+import ru.tellurian.fin_lit_api.model.entity.user.User;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;

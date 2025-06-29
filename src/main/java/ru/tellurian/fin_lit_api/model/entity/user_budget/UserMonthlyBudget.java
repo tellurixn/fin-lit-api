@@ -1,10 +1,11 @@
-package ru.tellurian.fin_lit_api.model.entity;
+package ru.tellurian.fin_lit_api.model.entity.user_budget;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import ru.tellurian.fin_lit_api.model.entity.user.User;
 
 @Getter
 @Setter

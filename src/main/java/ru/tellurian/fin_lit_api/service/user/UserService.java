@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 import ru.tellurian.fin_lit_api.exception.user.UserNotFoundException;
 import ru.tellurian.fin_lit_api.model.dto.user.budget.UserMonthlyBudgetDto;
 import ru.tellurian.fin_lit_api.model.dto.user.budget.UserMonthlyBudgetUpdateDto;
-import ru.tellurian.fin_lit_api.model.entity.User;
-import ru.tellurian.fin_lit_api.model.entity.UserMonthlyBudget;
-import ru.tellurian.fin_lit_api.repository.user.UserBudgetRepository;
+import ru.tellurian.fin_lit_api.model.entity.user.User;
+import ru.tellurian.fin_lit_api.model.entity.user_budget.UserMonthlyBudget;
 import ru.tellurian.fin_lit_api.repository.user.UserRepository;
+import ru.tellurian.fin_lit_api.repository.user_budget.UserBudgetRepository;
 
 import java.util.HashSet;
 
