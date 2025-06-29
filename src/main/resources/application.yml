@@ -8,3 +8,8 @@ spring:
     username: postgres
     password: tellme
     driver-class-name: org.postgresql.Driver
+
+auth:
+  token:
+    secret: 'ThisIsMySecretKeyForEncodeAndSaveAllJWTToken'
+    lifetime: 300000000

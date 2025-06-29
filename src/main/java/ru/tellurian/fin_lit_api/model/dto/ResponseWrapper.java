@@ -31,4 +31,10 @@ public class ResponseWrapper<T> {
         this.requestId = requestId;
         this.success = true;
     }
+
+    public ResponseWrapper() {
+        this.response = null;
+        this.requestId = requestId;
+        this.success = true;
+    }
 }

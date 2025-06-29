@@ -10,7 +10,7 @@ import org.springframework.web.servlet.HandlerMapping;
 import ru.tellurian.fin_lit_api.constant.RequestAttributes;
 import ru.tellurian.fin_lit_api.exception.user.UserNotFoundException;
 import ru.tellurian.fin_lit_api.model.entity.User;
-import ru.tellurian.fin_lit_api.repository.UserRepository;
+import ru.tellurian.fin_lit_api.repository.user.UserRepository;
 
 import java.util.Map;
 import java.util.TreeMap;

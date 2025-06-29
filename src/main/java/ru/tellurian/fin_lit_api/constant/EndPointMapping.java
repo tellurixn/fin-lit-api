@@ -16,6 +16,12 @@ public final class EndPointMapping {
 
                 public static final String CHOOSE_USER = USER + "/{userId}";
 
+                public static final String REGISTER = USER + "/register";
+
+                public static final String LOGIN = USER + "/login";
+
+                public static final String LOGOUT = USER + "/logout";
+
                 public static final class Budget {
 
                     public static final String BUDGET = CHOOSE_USER + "/budget";

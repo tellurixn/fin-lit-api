@@ -2,17 +2,23 @@ package ru.tellurian.fin_lit_api.service.user;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import ru.tellurian.fin_lit_api.exception.user.UserNotFoundException;
 import ru.tellurian.fin_lit_api.model.dto.user.budget.UserMonthlyBudgetDto;
 import ru.tellurian.fin_lit_api.model.dto.user.budget.UserMonthlyBudgetUpdateDto;
 import ru.tellurian.fin_lit_api.model.entity.User;
 import ru.tellurian.fin_lit_api.model.entity.UserMonthlyBudget;
-import ru.tellurian.fin_lit_api.repository.UserBudgetRepository;
-import ru.tellurian.fin_lit_api.repository.UserRepository;
+import ru.tellurian.fin_lit_api.repository.user.UserBudgetRepository;
+import ru.tellurian.fin_lit_api.repository.user.UserRepository;
+
+import java.util.HashSet;
 
 @Service
 @Log4j2
-public class UserService {
+public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
@@ -46,4 +52,20 @@ public class UserService {
     }
 
 
+    public User getByLogin(String login) {
+        return userRepository.findByLogin(login).orElseThrow(UserNotFoundException::new);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+        User u = getByLogin(login);
+        return new org.springframework.security.core.userdetails.User(
+                u.getLogin(),
+                u.getPassword(),
+                true,
+                true,
+                true,
+                true,
+                new HashSet<>());
+    }
 }

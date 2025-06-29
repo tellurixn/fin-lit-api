@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'ru.tellurian'
-version = '0.0.1'
+version = '0.0.2'
 
 java {
 	toolchain {
@@ -31,12 +31,17 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.integration:spring-integration-http'
-	implementation 'org.springframework.integration:spring-integration-jpa'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
+	/*--------------------------------SECURITY------------------------------------*/
+	implementation 'org.springframework.boot:spring-boot-starter-security:3.5.3'
+	implementation 'io.jsonwebtoken:jjwt:0.12.6'
+	implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.2'
+
 	/*--------------------------------DATABASE------------------------------------*/
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.integration:spring-integration-jpa'
 	runtimeOnly 'org.postgresql:postgresql'
 
 	/*---------------------------------LOMBOK-------------------------------------*/

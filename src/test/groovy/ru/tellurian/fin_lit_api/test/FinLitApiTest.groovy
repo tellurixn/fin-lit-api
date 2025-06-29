@@ -2,14 +2,14 @@ package ru.tellurian.fin_lit_api.test
 
 import jakarta.transaction.Transactional
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.boot.test.context.SpringBootTest
 import ru.tellurian.fin_lit_api.model.entity.User
 import ru.tellurian.fin_lit_api.model.entity.UserMonthlyBudget
-import ru.tellurian.fin_lit_api.repository.UserBudgetRepository
-import ru.tellurian.fin_lit_api.repository.UserRepository
+import ru.tellurian.fin_lit_api.repository.user.UserBudgetRepository
+import ru.tellurian.fin_lit_api.repository.user.UserRepository
 import spock.lang.Shared
 import spock.lang.Specification
+
 import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.PreparedStatement

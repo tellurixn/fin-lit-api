@@ -1,6 +1,7 @@
-package ru.tellurian.fin_lit_api.endpoint.user;
+package ru.tellurian.fin_lit_api.endpoint.user.budget;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.constraints.Positive;
@@ -16,11 +17,11 @@ import ru.tellurian.fin_lit_api.service.user.UserService;
 
 @RestController
 @Tag(name = "UserBudget", description = "Действия с расходами пользователя")
+@SecurityRequirement(name = "token")
 public class UserBudgetEndPoint {
 
     @Autowired
     private UserService userService;
-
     @GetMapping(EndPointMapping.Api.V1.User.Budget.BUDGET)
     @Operation(summary = "Получить информацию о месячных расходах пользоватиеля")
     public ResponseWrapper<UserMonthlyBudgetDto> getUserBudget(

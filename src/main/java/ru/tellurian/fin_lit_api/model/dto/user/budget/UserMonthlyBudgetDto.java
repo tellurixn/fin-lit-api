@@ -6,8 +6,6 @@ import lombok.Setter;
 import lombok.ToString;
 import ru.tellurian.fin_lit_api.model.entity.UserMonthlyBudget;
 
-import java.io.Serializable;
-
 /**
  * DTO ежемесячных расходов пользователя
  * created 15.06.2025
@@ -17,7 +15,7 @@ import java.io.Serializable;
 @Setter
 @ToString
 @Schema(description = "Ежемесячные расходы пользователя")
-public class UserMonthlyBudgetDto implements Serializable {
+public class UserMonthlyBudgetDto {
 
     @Schema(description = "Идентификатор бюджета пользователя", requiredMode = Schema.RequiredMode.REQUIRED, example = "1234567")
     private int id;
