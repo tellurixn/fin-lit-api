@@ -24,7 +24,7 @@ public class UserInterceptor extends AbstractInterceptor {
     private UserRepository userRepository;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception, UserNotFoundException {
         Map pathVariables = new TreeMap<>((Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE));
         int userId = Integer.parseInt(pathVariables.get("userId").toString());
         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);

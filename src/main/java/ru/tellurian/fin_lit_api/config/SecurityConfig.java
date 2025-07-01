@@ -77,8 +77,10 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers(EndPointMapping.Api.V1.User.LOGIN).permitAll()
+                        .requestMatchers(EndPointMapping.Api.V1.User.LOGOUT).permitAll()
                         .requestMatchers(EndPointMapping.Api.V1.User.REGISTER).permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers(EndPointMapping.Api.V1.V1_PATTERN).authenticated()
+                        .anyRequest().permitAll()
                 )
                 .addFilterAfter(tokenFilter, UsernamePasswordAuthenticationFilter.class);
 

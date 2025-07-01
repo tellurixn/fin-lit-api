@@ -10,6 +10,8 @@ public final class EndPointMapping {
 
             public static final String V1 = API + "/v1";
 
+            public static final String V1_PATTERN = V1 + "/**";
+
             public static final class User {
 
                 public static final String USER = V1 + "/user";
