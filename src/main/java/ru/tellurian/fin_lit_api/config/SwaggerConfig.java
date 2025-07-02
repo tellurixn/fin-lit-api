@@ -1,12 +1,15 @@
 package ru.tellurian.fin_lit_api.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.PathItem;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.servers.Server;
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.Map;
 
 /**
 * Конфигурация Swagger v3
@@ -35,7 +38,13 @@ public class SwaggerConfig {
                 .group("api")
                 .packagesToScan("ru.tellurian.fin_lit_api.endpoint")
                 .pathsToMatch("/api/**")
+                .addOpenApiCustomizer(api -> {
+                   for (Map.Entry<String, PathItem> : api.getPaths().entrySet()) {
+
+                    }
+                })
                 .build();
     }
+
 
 }

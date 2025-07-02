@@ -5,7 +5,8 @@ import lombok.Getter;
 @Getter
 public abstract class SystemException extends Exception {
 
-    protected abstract String getDescription();
+    public SystemException() {
+    }
 
-    protected final String pattern = "Error code %d, description: %s";
+    protected ResponseCode description;
 }

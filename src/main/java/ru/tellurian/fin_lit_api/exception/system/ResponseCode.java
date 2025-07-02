@@ -1,19 +1,10 @@
-package ru.tellurian.fin_lit_api.exception;
+package ru.tellurian.fin_lit_api.exception.system;
 
 /**
  * Список кодов ошибок
  * created 01.07.2025
  * */
-public record ResponseCode() {
-
-    public static final class Message {
-
-        public static final class User {
-
-            public static final String USER_NOT_FOUND = "User not found";
-        }
-    }
-
+public record ResponseCode(int code, String message) {
 
     public static final class Code {
         /**
