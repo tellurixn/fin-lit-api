@@ -7,12 +7,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.tellurian.fin_lit_api.exception.user.UserNotFoundException;
+import ru.tellurian.fin_lit_api.exception.user_budget.UserBudgetNotFoundException;
 import ru.tellurian.fin_lit_api.model.dto.user.budget.UserMonthlyBudgetDto;
 import ru.tellurian.fin_lit_api.model.dto.user.budget.UserMonthlyBudgetUpdateDto;
 import ru.tellurian.fin_lit_api.model.entity.user.User;
 import ru.tellurian.fin_lit_api.model.entity.user_budget.UserMonthlyBudget;
 import ru.tellurian.fin_lit_api.repository.user.UserRepository;
 import ru.tellurian.fin_lit_api.repository.user_budget.UserBudgetRepository;
+import ru.tellurian.fin_lit_api.service.user_budget.UserBudgetService;
 
 import java.util.HashSet;
 
@@ -25,13 +27,16 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserBudgetRepository userBudgetRepository;
 
-    public UserMonthlyBudgetDto getUserMonthlyBudget(User user) {
-        UserMonthlyBudget userMonthlyBudget = userBudgetRepository.findByUser(user).orElseThrow(RuntimeException::new);
+    @Autowired
+    private UserBudgetService userBudgetService;
+
+    public UserMonthlyBudgetDto getUserMonthlyBudget(User user) throws UserBudgetNotFoundException {
+        UserMonthlyBudget userMonthlyBudget = userBudgetService.getUserMonthlyBudgetByUser(user);
         return new UserMonthlyBudgetDto(userMonthlyBudget);
     }
 
-    public UserMonthlyBudgetDto update(User user, UserMonthlyBudgetUpdateDto updated) {
-        UserMonthlyBudget current = userBudgetRepository.findByUser(user).orElseThrow(RuntimeException::new);
+    public UserMonthlyBudgetDto update(User user, UserMonthlyBudgetUpdateDto updated) throws UserBudgetNotFoundException {
+        UserMonthlyBudget current = userBudgetService.getUserMonthlyBudgetByUser(user);
         if (current.getMonthlyIncome() != updated.getMonthlyBudget()) {
             current.setMonthlyIncome(updated.getMonthlyBudget());
         }

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.tellurian.fin_lit_api.constant.EndPointMapping;
 import ru.tellurian.fin_lit_api.constant.RequestAttributes;
-import ru.tellurian.fin_lit_api.exception.user.UserNotFoundException;
+import ru.tellurian.fin_lit_api.exception.user_budget.UserBudgetNotFoundException;
 import ru.tellurian.fin_lit_api.model.dto.system.ResponseWrapper;
 import ru.tellurian.fin_lit_api.model.dto.user.budget.UserMonthlyBudgetDto;
 import ru.tellurian.fin_lit_api.model.dto.user.budget.UserMonthlyBudgetUpdateDto;
@@ -33,7 +33,7 @@ public class UserBudgetEndPoint {
             HttpServletRequest context,
 
             @PathVariable int userId
-    ) throws UserNotFoundException {
+    ) throws UserBudgetNotFoundException {
         String requestId = (String) context.getAttribute(RequestAttributes.REQUEST_ID);
         User user = (User) context.getAttribute(RequestAttributes.USER);
         return new ResponseWrapper<>(userService.getUserMonthlyBudget(user), requestId);
@@ -47,7 +47,7 @@ public class UserBudgetEndPoint {
             @PathVariable @Positive int userId,
 
             @RequestBody UserMonthlyBudgetUpdateDto request
-    ) throws UserNotFoundException {
+    ) throws UserBudgetNotFoundException {
         String requestId = (String) context.getAttribute(RequestAttributes.REQUEST_ID);
         User user = (User) context.getAttribute(RequestAttributes.USER);
         return new ResponseWrapper<>(userService.update(user, request), requestId);

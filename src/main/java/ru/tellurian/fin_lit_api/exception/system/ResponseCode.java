@@ -8,7 +8,7 @@ public record ResponseCode(int code, String message) {
 
     public static final class Code {
         /**
-         * Ошибки при работе с пользователем
+         * Ошибки при работе с пользователем (4xx-499)
          */
         public static final class User {
 
@@ -16,6 +16,14 @@ public record ResponseCode(int code, String message) {
              * Пользователь не найден
              */
             public static final int USER_NOT_FOUND = 401;
+
+            /**
+             * Ошибки при работе с бюджетом пользователя (41x)
+             */
+            public static final class Budget {
+
+                public static final int BUDGET_NOT_FOUND = 411;
+            }
         }
     }
 
