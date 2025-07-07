@@ -8,8 +8,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.tellurian.fin_lit_api.exception.user.UserNotFoundException;
 import ru.tellurian.fin_lit_api.exception.user_budget.UserBudgetNotFoundException;
-import ru.tellurian.fin_lit_api.model.dto.user.budget.UserMonthlyBudgetDto;
-import ru.tellurian.fin_lit_api.model.dto.user.budget.UserMonthlyBudgetUpdateDto;
+import ru.tellurian.fin_lit_api.model.dto.user_budget.UserMonthlyBudgetDto;
+import ru.tellurian.fin_lit_api.model.dto.user_budget.request.UpdateUserMonthlyBudgetRequestDto;
 import ru.tellurian.fin_lit_api.model.entity.user.User;
 import ru.tellurian.fin_lit_api.model.entity.user_budget.UserMonthlyBudget;
 import ru.tellurian.fin_lit_api.repository.user.UserRepository;
@@ -35,7 +35,7 @@ public class UserService implements UserDetailsService {
         return new UserMonthlyBudgetDto(userMonthlyBudget);
     }
 
-    public UserMonthlyBudgetDto update(User user, UserMonthlyBudgetUpdateDto updated) throws UserBudgetNotFoundException {
+    public UserMonthlyBudgetDto update(User user, UpdateUserMonthlyBudgetRequestDto updated) throws UserBudgetNotFoundException {
         UserMonthlyBudget current = userBudgetService.getUserMonthlyBudgetByUser(user);
         if (current.getMonthlyIncome() != updated.getMonthlyBudget()) {
             current.setMonthlyIncome(updated.getMonthlyBudget());

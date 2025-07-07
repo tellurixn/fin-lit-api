@@ -1,4 +1,4 @@
-package ru.tellurian.fin_lit_api.model.dto.user.budget;
+package ru.tellurian.fin_lit_api.model.dto.user_budget.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,7 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @Schema(description = "Обновление бюджета")
-public class UserMonthlyBudgetUpdateDto {
+public class UpdateUserMonthlyBudgetRequestDto {
 
     @Schema(description = "Ежемесячный доход, в копейках", requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = "500000")
     private Long monthlyBudget;

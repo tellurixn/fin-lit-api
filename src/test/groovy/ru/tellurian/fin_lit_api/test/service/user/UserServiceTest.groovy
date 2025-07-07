@@ -2,8 +2,8 @@ package ru.tellurian.fin_lit_api.test.service.user
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import ru.tellurian.fin_lit_api.model.dto.user.budget.UserMonthlyBudgetDto
-import ru.tellurian.fin_lit_api.model.dto.user.budget.UserMonthlyBudgetUpdateDto
+import ru.tellurian.fin_lit_api.model.dto.user_budget.UserMonthlyBudgetDto
+import ru.tellurian.fin_lit_api.model.dto.user_budget.request.UpdateUserMonthlyBudgetRequestDto
 import ru.tellurian.fin_lit_api.model.entity.user.User
 import ru.tellurian.fin_lit_api.model.entity.user_budget.UserMonthlyBudget
 import ru.tellurian.fin_lit_api.service.user.UserService
@@ -35,7 +35,7 @@ class UserServiceTest extends FinLitApiTest {
         setup:
         User user = createUser()
         UserMonthlyBudget budget = createMonthlyBudget(user.getId())
-        UserMonthlyBudgetUpdateDto updated = new UserMonthlyBudgetUpdateDto(5000000L, null, null, null, null)
+        UpdateUserMonthlyBudgetRequestDto updated = new UpdateUserMonthlyBudgetRequestDto(5000000L, null, null, null, null)
         println user
         println budget
         when:

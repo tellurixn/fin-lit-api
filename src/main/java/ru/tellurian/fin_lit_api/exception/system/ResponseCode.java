@@ -24,6 +24,14 @@ public record ResponseCode(int code, String message) {
 
                 public static final int BUDGET_NOT_FOUND = 411;
             }
+
+            /**
+             * Ошибки при работе с подписками пользователя (42x)
+             * */
+            public static final class Subscription {
+
+                public static final int SUBSCRIPTION_NOT_FOUND = 421;
+            }
         }
     }
 

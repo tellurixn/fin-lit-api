@@ -1,6 +1,7 @@
 package ru.tellurian.fin_lit_api.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import ru.tellurian.fin_lit_api.constant.RequestAttributes;
+import ru.tellurian.fin_lit_api.exception.subscription.SubscriptionNotFoundException;
 import ru.tellurian.fin_lit_api.exception.user.UserNotFoundException;
 import ru.tellurian.fin_lit_api.model.dto.system.ResponseWrapper;
 
@@ -34,5 +36,23 @@ public class GlobalControllerAdvice {
     public ResponseWrapper<?> handleException(HttpServletRequest request, UsernameNotFoundException e) {
         String requestId = (String) request.getAttribute(RequestAttributes.REQUEST_ID);
         return new ResponseWrapper<>(e.getMessage(), requestId);
+    };
+
+    /** Ошибка - подписка не найдена */
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(SubscriptionNotFoundException.class)
+    @ResponseBody
+    public ResponseWrapper<?> handleException(HttpServletRequest request, SubscriptionNotFoundException e) {
+        String requestId = (String) request.getAttribute(RequestAttributes.REQUEST_ID);
+        return new ResponseWrapper<>(e.getMessage(), requestId);
+    };
+
+    /** Ошибка - нарушена валидация ограничения */
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseBody
+    public ResponseWrapper<?> handleException(HttpServletRequest request, ConstraintViolationException e) {
+        String requestId = (String) request.getAttribute(RequestAttributes.REQUEST_ID);
+        return new ResponseWrapper<>("Missing required request attributes", requestId);
     };
 }

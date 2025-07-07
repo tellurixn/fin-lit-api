@@ -3,8 +3,10 @@ package ru.tellurian.fin_lit_api.test
 import jakarta.transaction.Transactional
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import ru.tellurian.fin_lit_api.model.entity.subscription.Subscription
 import ru.tellurian.fin_lit_api.model.entity.user.User
 import ru.tellurian.fin_lit_api.model.entity.user_budget.UserMonthlyBudget
+import ru.tellurian.fin_lit_api.repository.subscription.SubscriptionRepository
 import ru.tellurian.fin_lit_api.repository.user.UserRepository
 import ru.tellurian.fin_lit_api.repository.user_budget.UserBudgetRepository
 import spock.lang.Shared
@@ -29,12 +31,16 @@ class FinLitApiTest extends Specification {
     @Autowired
     private UserRepository userRepository;
     @Autowired
+    private SubscriptionRepository subscriptionRepository
+    @Autowired
     private UserBudgetRepository budgetRepository;
 
     @Shared
-    private List<Integer> createdUsers = new ArrayList<>();
+    private List<Integer> createdUsers = new ArrayList<>()
     @Shared
-    private List<Integer> createdMonthlyBudget = new ArrayList<>();
+    private List<Integer> createdMonthlyBudget = new ArrayList<>()
+    @Shared
+    private List<Integer> createdSubscriptions = new ArrayList<>()
 
     def setupSpec() {
         connection = DriverManager.getConnection(URL, USER, PASSWORD)
@@ -42,6 +48,26 @@ class FinLitApiTest extends Specification {
 
     protected User createUser() {
         createUser("UNIT_TEST_USER" + System.currentTimeMillis(), "UNIT_TEST_PASSWORD", null)
+    }
+
+    protected Subscription createSubscription(User user) {
+        createSubscription("UNIT_TEST_SUBSCRIPTION", 15000L, user)
+    }
+
+    protected Subscription createSubscription(String name, Long cost, User user) {
+        PreparedStatement stmt = connection.prepareStatement(CREATE_USER_SUBSCRIPTION_SQL);
+        stmt.setString(1, name);
+        stmt.setLong(2, cost);
+        stmt.setInt(3, user.getId());
+
+        ResultSet rs =  stmt.executeQuery();
+        Integer subscriptionId = null;
+        while(rs.next()) {
+            subscriptionId = rs.getInt("id_subscription")
+        }
+        rs.close();
+        createdSubscriptions.add(subscriptionId)
+        return subscriptionRepository.findById(subscriptionId).orElse(null)
     }
 
     protected User createUser(String login, String password, String comment) {
@@ -95,11 +121,18 @@ class FinLitApiTest extends Specification {
             stmt.execute()
         }
 
+        for (int id : createdSubscriptions) {
+            PreparedStatement stmt = connection.prepareStatement(DELETE_SUBSCRIPTION_SQL);
+            stmt.setInt(1, id)
+            stmt.execute()
+        }
+
         for (int id : createdUsers) {
             PreparedStatement stmt = connection.prepareStatement(DELETE_USER_SQL);
             stmt.setInt(1, id)
             stmt.execute()
         }
+
     }
 
     private final static String CREATE_USER_SQL = "" +
@@ -122,5 +155,16 @@ class FinLitApiTest extends Specification {
     private final static String DELETE_USER_BUDGET_SQL = "" +
             "delete from public.user_monthly_budget " +
             "where id_user_budget = ? " +
+            ""
+
+    private final static String CREATE_USER_SUBSCRIPTION_SQL = "" +
+            "insert into public.subscription(name, cost, id_user) " +
+            "values(?, ?, ?)" +
+            "returning id_subscription " +
+            ""
+
+    private final static String DELETE_SUBSCRIPTION_SQL = "" +
+            "delete from public.subscription " +
+            "where id_subscription = ? " +
             ""
 }

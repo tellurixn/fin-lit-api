@@ -1,4 +1,4 @@
-package ru.tellurian.fin_lit_api.model.dto.user.budget;
+package ru.tellurian.fin_lit_api.model.dto.user_budget;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;

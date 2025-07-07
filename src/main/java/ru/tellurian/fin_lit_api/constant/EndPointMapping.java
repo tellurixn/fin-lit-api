@@ -31,6 +31,17 @@ public final class EndPointMapping {
                     private Budget() {}
                 }
 
+                public static final class Subscription {
+
+                    public static final String SUBSCRIPTION = CHOOSE_USER + "/subscription";
+
+                    public static final String SUBSCRIPTIONS = SUBSCRIPTION + "s";
+
+                    public static final String CHOOSE_SUBSCRIPTION = SUBSCRIPTION + "/{subscriptionId}";
+
+                    private Subscription() {};
+                }
+
                 private User() {}
             }
 

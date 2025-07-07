@@ -11,8 +11,8 @@ import ru.tellurian.fin_lit_api.constant.EndPointMapping;
 import ru.tellurian.fin_lit_api.constant.RequestAttributes;
 import ru.tellurian.fin_lit_api.exception.user_budget.UserBudgetNotFoundException;
 import ru.tellurian.fin_lit_api.model.dto.system.ResponseWrapper;
-import ru.tellurian.fin_lit_api.model.dto.user.budget.UserMonthlyBudgetDto;
-import ru.tellurian.fin_lit_api.model.dto.user.budget.UserMonthlyBudgetUpdateDto;
+import ru.tellurian.fin_lit_api.model.dto.user_budget.UserMonthlyBudgetDto;
+import ru.tellurian.fin_lit_api.model.dto.user_budget.request.UpdateUserMonthlyBudgetRequestDto;
 import ru.tellurian.fin_lit_api.model.entity.user.User;
 import ru.tellurian.fin_lit_api.service.user.UserService;
 
@@ -46,7 +46,7 @@ public class UserBudgetEndPoint {
 
             @PathVariable @Positive int userId,
 
-            @RequestBody UserMonthlyBudgetUpdateDto request
+            @RequestBody UpdateUserMonthlyBudgetRequestDto request
     ) throws UserBudgetNotFoundException {
         String requestId = (String) context.getAttribute(RequestAttributes.REQUEST_ID);
         User user = (User) context.getAttribute(RequestAttributes.USER);

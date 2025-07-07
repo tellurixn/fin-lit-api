@@ -1,4 +1,4 @@
-package ru.tellurian.fin_lit_api.model.dto.user.auth;
+package ru.tellurian.fin_lit_api.model.dto.auth;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;

@@ -8,27 +8,28 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerMapping;
 import ru.tellurian.fin_lit_api.constant.RequestAttributes;
+import ru.tellurian.fin_lit_api.exception.subscription.SubscriptionNotFoundException;
 import ru.tellurian.fin_lit_api.exception.user.UserNotFoundException;
-import ru.tellurian.fin_lit_api.model.entity.user.User;
-import ru.tellurian.fin_lit_api.repository.user.UserRepository;
+import ru.tellurian.fin_lit_api.model.entity.subscription.Subscription;
+import ru.tellurian.fin_lit_api.repository.subscription.SubscriptionRepository;
 
 import java.util.Map;
 import java.util.TreeMap;
 
 @Log4j2
-@Order(1)
+@Order(2)
 @Component
-public class UserInterceptor extends AbstractInterceptor {
+public class SubscriptionInterceptor extends AbstractInterceptor {
 
     @Autowired
-    private UserRepository userRepository;
+    private SubscriptionRepository subscriptionRepository;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception, UserNotFoundException {
         Map pathVariables = new TreeMap<>((Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE));
-        int userId = Integer.parseInt(pathVariables.get(RequestAttributes.USER_ID).toString());
-        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
-        request.setAttribute(RequestAttributes.USER, user);
+        int userId = Integer.parseInt(pathVariables.get(RequestAttributes.SUBSCRIPTION_ID).toString());
+        Subscription subscription = subscriptionRepository.findById(userId).orElseThrow(SubscriptionNotFoundException::new);
+        request.setAttribute(RequestAttributes.SUBSCRIPTION, subscription);
         return true;
     }
 }
