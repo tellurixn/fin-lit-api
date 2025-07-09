@@ -1,0 +1,62 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  IMAGE_NAME: fin-lit-api
+  DB_USER: postgres
+  DB_PASSWORD: tellme
+  DB_NAME: postgres
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_USER: ${{ env.DB_USER }}
+          POSTGRES_PASSWORD: ${{ env.DB_PASSWORD }}
+          POSTGRES_DB: ${{ env.DB_NAME }}
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Wait for PostgreSQL
+        run: |
+          for i in {1..10}; do
+            pg_isready -h localhost -U ${{ env.DB_USER }} -d ${{ env.DB_NAME }} && break
+            sleep 3
+          done
+
+      - name: Load database dump
+        run: |
+          PGPASSWORD=${{ env.DB_PASSWORD }} psql -h localhost -U ${{ env.DB_USER }} -d ${{ env.DB_NAME }} -f src/test/resources/dump.sql
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 8.6
+
+      - name: Build with Gradle
+        run: gradle build -x test
+
+      - name: Run tests
+        run: gradle test --info --stacktrace
+        env:
+          SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/${{ env.DB_NAME }}
+          SPRING_DATASOURCE_USERNAME: ${{ env.DB_USER }}
+          SPRING_DATASOURCE_PASSWORD: ${{ env.DB_PASSWORD }}
