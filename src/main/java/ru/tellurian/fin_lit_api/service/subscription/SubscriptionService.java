@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.tellurian.fin_lit_api.exception.subscription.SubscriptionNotFoundException;
 import ru.tellurian.fin_lit_api.model.dto.subscription.request.CreateSubscriptionRequestDto;
+import ru.tellurian.fin_lit_api.model.dto.subscription.request.UpdateSubscriptionRequestDto;
 import ru.tellurian.fin_lit_api.model.entity.subscription.Subscription;
 import ru.tellurian.fin_lit_api.model.entity.user.User;
 import ru.tellurian.fin_lit_api.repository.subscription.SubscriptionRepository;
@@ -32,5 +33,15 @@ public class SubscriptionService {
         subscription.setCost(createRequest.getCost());
         subscription.setUser(user);
         return subscriptionRepository.save(subscription);
+    }
+
+    public Subscription update(Subscription oldSubscription, UpdateSubscriptionRequestDto updateRequest) {
+        if(updateRequest.getName() != null) {
+            oldSubscription.setName(updateRequest.getName());
+        }
+        if(updateRequest.getCost() != null) {
+            oldSubscription.setCost(updateRequest.getCost());
+        }
+        return subscriptionRepository.save(oldSubscription);
     }
 }

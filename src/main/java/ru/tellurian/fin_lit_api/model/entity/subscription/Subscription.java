@@ -12,7 +12,6 @@ import ru.tellurian.fin_lit_api.model.entity.user.User;
 @Setter
 @Entity
 @Table(schema = "public", name = "subscription")
-//@SequenceGenerator(name = "SubscriptionSequence", sequenceName = "nextval('subscription_id_subscription_seq'::regclass)")
 public class Subscription {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

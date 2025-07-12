@@ -8,8 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.tellurian.fin_lit_api.constant.EndPointMapping;
 import ru.tellurian.fin_lit_api.constant.RequestAttributes;
-import ru.tellurian.fin_lit_api.exception.user_budget.UserBudgetNotFoundException;
+import ru.tellurian.fin_lit_api.exception.subscription.SubscriptionNotFoundException;
 import ru.tellurian.fin_lit_api.model.dto.subscription.request.CreateSubscriptionRequestDto;
+import ru.tellurian.fin_lit_api.model.dto.subscription.request.UpdateSubscriptionRequestDto;
 import ru.tellurian.fin_lit_api.model.dto.subscription.response.GetSubscriptionResponseDto;
 import ru.tellurian.fin_lit_api.model.dto.system.ResponseWrapper;
 import ru.tellurian.fin_lit_api.model.entity.subscription.Subscription;
@@ -37,7 +38,7 @@ public class SubscriptionEndPoint {
             @PathVariable int userId,
 
             @PathVariable int subscriptionId
-    ) throws UserBudgetNotFoundException {
+    ) throws SubscriptionNotFoundException {
         String requestId = (String) context.getAttribute(RequestAttributes.REQUEST_ID);
         User user = (User) context.getAttribute(RequestAttributes.USER);
         Subscription subscription = (Subscription) context.getAttribute(RequestAttributes.SUBSCRIPTION);
@@ -51,7 +52,7 @@ public class SubscriptionEndPoint {
             HttpServletRequest context,
 
             @PathVariable int userId
-    ) throws UserBudgetNotFoundException {
+    ) {
         String requestId = (String) context.getAttribute(RequestAttributes.REQUEST_ID);
         User user = (User) context.getAttribute(RequestAttributes.USER);
         List<Subscription> subscriptions = subscriptionService.getAllByUser(user);
@@ -67,10 +68,29 @@ public class SubscriptionEndPoint {
             @PathVariable int userId,
 
             @RequestBody CreateSubscriptionRequestDto request
-    ) throws UserBudgetNotFoundException {
+    ) {
         String requestId = (String) context.getAttribute(RequestAttributes.REQUEST_ID);
         User user = (User) context.getAttribute(RequestAttributes.USER);
         GetSubscriptionResponseDto subscriptionDto = new GetSubscriptionResponseDto(subscriptionService.create(user, request));
         return new ResponseWrapper<>(subscriptionDto, requestId);
+    }
+
+    @PutMapping(EndPointMapping.Api.V1.User.Subscription.CHOOSE_SUBSCRIPTION)
+    @Operation(summary = "Обновить подписку пользователя")
+    public ResponseWrapper<GetSubscriptionResponseDto> updateSubscription(
+            HttpServletRequest context,
+
+            @PathVariable int userId,
+
+            @PathVariable int subscriptionId,
+
+            @RequestBody UpdateSubscriptionRequestDto request
+    ) throws SubscriptionNotFoundException {
+        String requestId = (String) context.getAttribute(RequestAttributes.REQUEST_ID);
+        User user = (User) context.getAttribute(RequestAttributes.USER);
+        Subscription subscription = (Subscription) context.getAttribute(RequestAttributes.SUBSCRIPTION);
+        Subscription updatedSubscription = subscriptionService.update(subscription, request);
+        GetSubscriptionResponseDto updatedSubscriptionDto = new GetSubscriptionResponseDto(updatedSubscription);
+        return new ResponseWrapper<>(updatedSubscriptionDto, requestId);
     }
 }

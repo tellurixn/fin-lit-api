@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerMapping;
 import ru.tellurian.fin_lit_api.constant.RequestAttributes;
 import ru.tellurian.fin_lit_api.exception.subscription.SubscriptionNotFoundException;
-import ru.tellurian.fin_lit_api.exception.user.UserNotFoundException;
 import ru.tellurian.fin_lit_api.model.entity.subscription.Subscription;
 import ru.tellurian.fin_lit_api.repository.subscription.SubscriptionRepository;
 
@@ -25,10 +24,10 @@ public class SubscriptionInterceptor extends AbstractInterceptor {
     private SubscriptionRepository subscriptionRepository;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception, UserNotFoundException {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception, SubscriptionNotFoundException {
         Map pathVariables = new TreeMap<>((Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE));
-        int userId = Integer.parseInt(pathVariables.get(RequestAttributes.SUBSCRIPTION_ID).toString());
-        Subscription subscription = subscriptionRepository.findById(userId).orElseThrow(SubscriptionNotFoundException::new);
+        int subscriptionId = Integer.parseInt(pathVariables.get(RequestAttributes.SUBSCRIPTION_ID).toString());
+        Subscription subscription = subscriptionRepository.findById(subscriptionId).orElseThrow(SubscriptionNotFoundException::new);
         request.setAttribute(RequestAttributes.SUBSCRIPTION, subscription);
         return true;
     }

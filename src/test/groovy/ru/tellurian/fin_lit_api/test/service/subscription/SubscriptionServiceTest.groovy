@@ -2,6 +2,7 @@ package ru.tellurian.fin_lit_api.test.service.subscription
 
 import org.springframework.beans.factory.annotation.Autowired
 import ru.tellurian.fin_lit_api.model.dto.subscription.request.CreateSubscriptionRequestDto
+import ru.tellurian.fin_lit_api.model.dto.subscription.request.UpdateSubscriptionRequestDto
 import ru.tellurian.fin_lit_api.model.entity.subscription.Subscription
 import ru.tellurian.fin_lit_api.model.entity.user.User
 import ru.tellurian.fin_lit_api.service.subscription.SubscriptionService
@@ -11,7 +12,9 @@ import spock.lang.Unroll
 class SubscriptionServiceTest extends FinLitApiTest {
 
     public static final String NAME = "test_unit"
+    public static final String NEW_NAME = "test_unit_new_name"
     public static final Long COST = 13333L
+    public static final Long NEW_COST = 155L
 
     @Autowired
     private SubscriptionService subscriptionService
@@ -44,5 +47,20 @@ class SubscriptionServiceTest extends FinLitApiTest {
         found != null
         found.size() == 1
         foundCreatedSubscriptionId == createdSubscriptionId
+    }
+
+    @Unroll
+    def "should update user's subscription"() {
+        setup:
+        User user = createUser()
+        Subscription subscription = createSubscription(user)
+        UpdateSubscriptionRequestDto request = new UpdateSubscriptionRequestDto(NEW_NAME, NEW_COST)
+        when:
+        Subscription updated = subscriptionService.update(subscription, request)
+        println updated
+        then:
+        updated != null
+        updated.getName() == NEW_NAME
+        updated.getCost() == NEW_COST
     }
 }
